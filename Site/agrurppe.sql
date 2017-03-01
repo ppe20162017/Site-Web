@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Lun 12 Décembre 2016 à 15:29
+-- Généré le :  Mer 01 Mars 2017 à 11:10
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -119,9 +119,15 @@ CREATE TABLE IF NOT EXISTS `commande` (
   `dateCommande` date DEFAULT NULL,
   `numLots` int(11) NOT NULL,
   `idClient` int(11) NOT NULL,
-  PRIMARY KEY (`numeroCommande`),
-  UNIQUE KEY `idClient` (`idClient`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  PRIMARY KEY (`numeroCommande`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Contenu de la table `commande`
+--
+
+INSERT INTO `commande` (`numeroCommande`, `dateCommande`, `numLots`, `idClient`) VALUES
+(3, '2017-01-11', 5, 4);
 
 -- --------------------------------------------------------
 
@@ -152,10 +158,18 @@ INSERT INTO `commune` (`idCom`, `nomCom`, `aoc_o_n_`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `comporter` (
-  `quantité` int(11) NOT NULL,
-  `idCond` int(11) NOT NULL,
-  UNIQUE KEY `idCond` (`idCond`)
+  `quantite` int(11) NOT NULL,
+  `numeroCommande` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `comporter`
+--
+
+INSERT INTO `comporter` (`quantite`, `numeroCommande`) VALUES
+(1750, 0),
+(31500, 0),
+(33500, 3);
 
 -- --------------------------------------------------------
 
@@ -168,23 +182,10 @@ CREATE TABLE IF NOT EXISTS `conditionnement` (
   `libelleCond` varchar(25) DEFAULT NULL,
   `poidsCond` float DEFAULT NULL,
   `dateCond` date DEFAULT NULL,
+  `numeroCommande` int(11) NOT NULL,
   PRIMARY KEY (`idCond`),
   UNIQUE KEY `idCond` (`idCond`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
-
---
--- Contenu de la table `conditionnement`
---
-
-INSERT INTO `conditionnement` (`idCond`, `libelleCond`, `poidsCond`, `dateCond`) VALUES
-(1, 'sachet ( en Gr )', 250, NULL),
-(2, 'sachet ( en Gr )', 500, NULL),
-(3, 'sachet ( en Kg )', 1, NULL),
-(4, 'Filet ( en Kg )', 1, NULL),
-(5, 'Filet ( en Kg )', 5, NULL),
-(6, 'Filet ( en Kg )', 10, NULL),
-(7, 'Filet ( en Kg )', 25, NULL),
-(8, 'Carton ( en Kg )', 10, NULL);
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -219,12 +220,19 @@ INSERT INTO `livraison` (`idLivraison`, `dateLiv`, `typeProduitLiv`, `quantiteLi
 CREATE TABLE IF NOT EXISTS `lots` (
   `numLots` int(11) NOT NULL AUTO_INCREMENT,
   `calibreLot` float DEFAULT NULL,
-  `typeProduit` varchar(255) NOT NULL,
   `idLivraison` int(11) NOT NULL,
   PRIMARY KEY (`numLots`),
   UNIQUE KEY `numLots` (`numLots`),
   UNIQUE KEY `idLivraison` (`idLivraison`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+--
+-- Contenu de la table `lots`
+--
+
+INSERT INTO `lots` (`numLots`, `calibreLot`, `idLivraison`) VALUES
+(3, 2, 6),
+(5, 5, 7);
 
 -- --------------------------------------------------------
 
@@ -267,7 +275,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `profil` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`idUser`),
   UNIQUE KEY `idUser` (`idUser`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
 
 --
 -- Contenu de la table `user`
@@ -278,7 +286,21 @@ INSERT INTO `user` (`idUser`, `login`, `mdp`, `profil`) VALUES
 (12, 'Lucie', '$2a$11$202cb962ac59075b964b0uP8Z0HFNzrua481kU2zRChVrxfjr9tAS', 'client'),
 (13, 'Tanguy', '$2a$11$202cb962ac59075b964b0uP8Z0HFNzrua481kU2zRChVrxfjr9tAS', 'administrateur'),
 (14, 'thomas', '$2a$11$202cb962ac59075b964b0uP8Z0HFNzrua481kU2zRChVrxfjr9tAS', 'producteur'),
-(15, 'laurent', '$2a$11$202cb962ac59075b964b0uP8Z0HFNzrua481kU2zRChVrxfjr9tAS', 'producteur');
+(15, 'laurent', '$2a$11$202cb962ac59075b964b0uP8Z0HFNzrua481kU2zRChVrxfjr9tAS', 'producteur'),
+(16, 'hb', '$2a$11$202cb962ac59075b964b0uP8Z0HFNzrua481kU2zRChVrxfjr9tAS', 'client');
+
+--
+-- Déclencheurs `user`
+--
+DROP TRIGGER IF EXISTS `verification`;
+DELIMITER //
+CREATE TRIGGER `verification` BEFORE INSERT ON `user`
+ FOR EACH ROW IF exists(SELECT login FROM USER WHERE login =  NEW.login) 
+THEN	
+	signal sqlstate '45000' set message_text = 'Tentative d'insertion d'un nom qui existe';
+END IF
+//
+DELIMITER ;
 
 -- --------------------------------------------------------
 
