@@ -1,0 +1,229 @@
+body
+{
+        font-family: "Arial";
+        color: white;
+        background:url("background.jpg") center no-repeat;
+        background-size:100% 100%;
+        font-size:16px;
+        text-align:center;margin-bottom:5px;
+        text-decoration:none
+}   
+
+
+
+#logo/* Postion du logo*/
+{
+        margin-top:10
+        0px;
+        margin-left: auto;
+        margin-right: auto;
+}
+#menu, #menu ul /* Liste */     
+{
+        padding : 0;
+        margin : 0;
+        list-style : none; 
+        line-height : 50px;
+        text-align : center;
+        width:835px;
+}
+
+#menu /* Ensemble du menu */
+{
+        
+        font-family : Arial;
+        font-size : 15px;
+        width:835px;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 125px;
+        
+}
+
+#menu a /* Contenu des listes */
+{
+        display : inline-block;
+        padding : 0;
+        background : #D1BC52;      
+        color : #fff; 
+        text-decoration : none; 
+        width : 118px; 
+        color: #61380B;
+}
+
+#menu li /* Elements des listes */      
+{ 
+        width:138px;
+        display:inline;
+        float : left; 
+        border-right : 1px solid #fff;
+        border-right: 1px solid transparent;
+}
+
+#menu a:hover {
+        color:#000;
+        background:#CE7A26;
+    }
+
+article {
+        position: relative;
+        background-color:#D1BC52;
+        color: #61380B;
+        padding:10px;
+        width:810px;
+        margin-top:200px;
+        margin-left: auto;
+        margin-right: auto;
+}   
+footer {
+        width:830px;
+        height:40px;
+        margin-top:200px;
+        text-align:center;
+        background-color:#D1BC52;
+        margin-left: auto;
+        margin-right: auto;
+}   
+/* Formulaire*/
+.form-connexion{
+
+    width:450px;
+    padding:30px;
+    margin:40px auto;
+    margin-top:80px;
+    background: #D1BC52;
+    border-radius: 10px;
+    -webkit-border-radius:10px;
+    -moz-border-radius: 10px;
+    box-shadow: 0px 0px 10px #D1BC52;
+    -moz-box-shadow: 0px 0px 10px #D1BC52;
+    -webkit-box-shadow: 0px 0px 10px #D1BC52;
+    text-align: center;
+    display: inline-block;
+}
+.form-connexion .connexion{
+    padding: 30px;
+    background: #F8F8F8;
+    border-radius: 6px;
+    margin-bottom: 15px;
+}
+.form-connexion h1{
+    background: #CE7A26;
+    padding: 20px 30px 15px 30px;
+    margin: -30px -30px 30px -30px;
+    border-radius: 10px 10px 0 0;
+    -webkit-border-radius: 10px 10px 0 0;
+    -moz-border-radius: 10px 10px 0 0;
+    color: #61380B;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.12);
+    font: normal 30px 'Bitter', serif;
+    -moz-box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.17);
+    -webkit-box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.17);
+    box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.17);
+    }
+.form-connexion label{
+    display: block;
+    font: 13px Arial, Helvetica, sans-serif;
+    color: #61380B;
+    margin-bottom: 15px;
+}
+
+.form-connexion input[type="button"], 
+.form-connexion input[type="submit"],
+.form-connexion input[type="reset"]{
+    background: #CE7A26;
+    padding: 8px 20px 8px 20px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    color: #61380B;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.12);
+    font: normal 30px 'Bitter', serif;
+    -moz-box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.17);
+    -webkit-box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.17);
+    box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.17);
+    font-size: 15px;
+}
+.form-connexion input[type="button"]:hover, 
+.form-connexion input[type="submit"]:hover,
+.form-connexion input[type="reset"]:hover{
+    background:#1AC13E;
+    -moz-box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.28);
+    -webkit-box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.28);
+    box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.28);
+}
+.form-connexion .button-inscription{
+     display: inline-block;  
+}
+
+
+.listeProd{
+
+    width:758px;
+    padding:30px;
+    margin:40px auto;
+    padding-left: 0px;
+    background: #D1BC52;
+    border-radius: 10px;
+    -webkit-border-radius:10px;
+    -moz-border-radius: 10px;
+    box-shadow: 0px 0px 10px #D1BC52;
+    -moz-box-shadow: 0px 0px 10px #D1BC52;
+    -webkit-box-shadow: 0px 0px 10px #D1BC52;
+    text-align: center;
+    display: inline-block;
+}
+.listeProd .tableau{
+    padding: 30px;
+    background: #F8F8F8;
+    border-radius: 6px;
+    margin-bottom: 15px;
+}
+.listeProd h1{
+    background: #CE7A26;
+    padding: 20px 30px 15px 30px;
+    margin: -30px -30px 30px -30px;
+    border-radius: 10px 10px 0 0;
+    -webkit-border-radius: 10px 10px 0 0;
+    -moz-border-radius: 10px 10px 0 0;
+    color: #61380B;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.12);
+    font: normal 30px 'Bitter', serif;
+    -moz-box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.17);
+    -webkit-box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.17);
+    box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.17);
+    }
+.listeProd label{
+    display: block;
+    font: 13px Arial, Helvetica, sans-serif;
+    color: #61380B;
+    margin-bottom: 15px;
+}
+
+.listeProd input[type="button"], 
+.listeProd input[type="submit"],
+.listeProd input[type="reset"]{
+    background: #CE7A26;
+    padding: 8px 20px 8px 20px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    color: #61380B;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.12);
+    font: normal 30px 'Bitter', serif;
+    -moz-box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.17);
+    -webkit-box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.17);
+    box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.17);
+    font-size: 15px;
+}
+.listeProd input[type="button"]:hover, 
+.listeProd input[type="submit"]:hover,
+.listeProd input[type="reset"]:hover{
+    background:#1AC13E;
+    -moz-box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.28);
+    -webkit-box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.28);
+    box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.28);
+}
+    
+   
