@@ -49,13 +49,42 @@
           require('connexionbdd.php');
 
            
-              $sql = "INSERT INTO user (login, mdp, profil) VALUES ('$login','$mdp', 'client')";
+ 
+$sql1 = "SELECT login FROM user WHERE login = '$login'";
+
+$req = mysqli_query($connect,$sql1); 
+  $data = mysqli_fetch_array($req);
+  mysqli_fetch_assoc($req);
+
+
+if($data['login'] != 0) 
+{
+echo 'le login'. $login .' existe déjà';
+exit;
+} 
+else{
+
+   $sql = "INSERT INTO user (login, mdp, profil) VALUES ('$login','$mdp', 'client')";
+
               mysqli_query ($connect,$sql);
               die("Inscription terminée Client <a href='connexion.php'>connectez vous</a>");
+}
+
+
+
+             /* $sql = "INSERT INTO user (login, mdp, profil) VALUES ('$login','$mdp', 'client')";
+
+              mysqli_query ($connect,$sql);
+              die("Inscription terminée Client <a href='connexion.php'>connectez vous</a>");
+
+
+
+             
             }
 
-        } 
-
+        } */
+}
+}
             ?>
 </form>
 </div>
