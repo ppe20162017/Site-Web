@@ -79,7 +79,7 @@ require('connexionbdd.php');
     $.datepicker.setDefaults( $.datepicker.regional[ "fr" ] );
 });
   </script>
-        <label />Quel est la date de cette livraison ?  <br><br> <input id="dateAdhesion" name="dateAdhesion" > </label>
+        <label />Quel est la date de votre  adhesion a Agrur ?  <br><br> <input id="dateAdhesion" name="dateAdhesion" > </label>
    </div>
           
     <div class="button-connexion">

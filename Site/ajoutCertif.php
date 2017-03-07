@@ -43,7 +43,7 @@ require('connexionbdd.php');
         </nav> 
 
          <div class="form-connexion">
-<h1>Ajoutez Producteur</h1>
+<h1>Ajoutez une certification</h1>
 <form method ="POST" action="ajoutCertif.php"  >
     <div class="connexion">
      

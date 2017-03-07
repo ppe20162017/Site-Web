@@ -63,7 +63,7 @@
            <div class="form-connexion">
 <form method ="POST" action="commande.php"  >
     <div class="connexion">
-        <h1>Paaser une commande</h1>
+        <h1>Passer une commande</h1>
   
      
         <label> Quel lot souhaitez-vous commander<br> <br> <select name="numLots">

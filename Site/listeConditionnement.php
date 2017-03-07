@@ -49,15 +49,56 @@ require('connexionbdd.php');
 
   
       <br><br>
-        <table>
-                <tr>
-                    <th>Type de conditionnent</th>
-                     <tr>
-      <td>sachet</td>
-      </tr>
-      <tr>
-      <td>sachet</td></tr>  
-                 <th>Poids du conditionnement</th>
+  <table>
+ 
+
+   <tr>
+       <th>Type </th>
+       <th>Poids</th>
+     
+
+   </tr>
+   <tr>
+       <td>Sachet</td>
+       <td>250 gr</td>
+    
+   </tr>
+   <tr>
+       <td>Sachet</td>
+       <td>500 gr</td>
+       
+   </tr>
+     <tr>
+       <td>Sachet</td>
+       <td>1 kg</td>
+       
+   </tr>
+     <tr>
+       <td>Filet</td>
+       <td>1 kg</td>
+         <tr>
+       <td>Filet</td>
+       <td>5 kg</td>
+       
+   </tr>
+     <tr>
+       <td>Filet</td>
+       <td>10 kg</td>
+       
+   </tr>
+     <tr>
+       <td>Filet</td>
+       <td>25 kg</td>
+       
+   </tr>
+     <tr>
+       <td>Carton</td>
+       <td>10 kg</td>
+       
+   </tr>
+       
+   </tr>
+</table>
 
                     
                    

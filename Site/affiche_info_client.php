@@ -69,9 +69,10 @@
         
    </div>
           
-    <div class="button-connexion">    
+    <div class="button-connexion">  
+          <input type="submit"  value="Valider les modifications" name="validation" />  
      <input type="submit" value="Retour à l'accueil" name="annulation" onclick="window.location.href='modif_info_client.php';"/>
-      <input type="submit"  value="Valider les modifications" name="validation" />
+
     </div>
     </article>
 
