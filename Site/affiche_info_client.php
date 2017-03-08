@@ -13,16 +13,22 @@
   // on recupere l'id de l'utilisateur connecté
   $sql = "SELECT idUser FROM user WHERE login='$login' ";
 
+  // on execute la requete SQL 
   $req = mysqli_query($connect,$sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysqli_error($connect));
-  $data = mysqli_fetch_array($req);
-  // on attribue l'id de l'utilisateur connecté à la valeur $idUser
 
+  // on retourne le données recupere dans la variable $data
+  $data = mysqli_fetch_array($req);
+
+  // on attribue l'id de l'utilisateur connecté à la valeur $idUser
   $idUser=$data['idUser'];
 
   // on recupere tout les informations de l'utilisateur
   $sql2 = "SELECT * FROM client WHERE idUser='$idUser' ";
 
+  // on execute la requete SQL 
   $req = mysqli_query($connect,$sql2) or die('Erreur SQL !<br />'.$sql2.'<br />'.mysqli_error($connect));
+
+  // on retourne le données recupere dans la variable $data
   $data = mysqli_fetch_array($req);
  
 
@@ -77,15 +83,18 @@
     </article>
 
 <?php
+// on détermine si les variable validé sont NULL
 if(isset($_POST['validation']) )
 
      {  
+//on place dans des variable les valeurs passé en POST
         $nomClient=$data['nomClient'];
         $adresseClient=$_POST['adresseClient'];
         $nomRespAchat=$_POST['nomRespAchat'];
-        
+
+//on modifie les informations dans client        
         $sql="UPDATE client SET nomClient='$nomClient',adresseClient='$adresseClient',nomRespAchat='$nomRespAchat' WHERE idUser='$idUser' ";
-     
+     // on execute la requete SQL
         mysqli_query ($connect,$sql);
       }
 ?>

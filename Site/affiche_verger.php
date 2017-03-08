@@ -8,18 +8,31 @@
  //on se connecte a la base de données
 require('connexionbdd.php');
 
+//on selectionne l'id de l'utilisateur connecté
  $sql = "SELECT idUser FROM user WHERE login='$login' ";
 
+ //on execute la requete SQL
   $req = mysqli_query($connect,$sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysqli_error($connect));
+
+  // on retourne le données recupere dans la variable $data
   $data = mysqli_fetch_array($req);
+
+   // on attribue l'id de l'utilisateur connecté à la valeur $idUser
   $idUser=$data['idUser'];
 
+ //on selectionne l'id du producteurs connecté
   $sql1 = "SELECT idProducteur FROM producteur WHERE idUser='$idUser' ";
 
+//on execute la requete SQL
   $req = mysqli_query($connect,$sql1) or die('Erreur SQL !<br />'.$sql1.'<br />'.mysqli_error($connect));
+
+  // on retourne le données recupere dans la variable $data 
   $data = mysqli_fetch_array($req);
+
+  //on place dans des variables les données contenu dans $data
   $idProducteur=$data['idProducteur'];
  
+ //on selectionne les informations des vergers que le producteur possede
   $sql2 = "SELECT nomVerger, superficie, hectare FROM vergers WHERE idProducteur='$idProducteur'";
 
  ?>
@@ -66,7 +79,7 @@ require('connexionbdd.php');
                    
                 </tr>
    <?php
-
+// on execute la requete
   $req = mysqli_query($connect,$sql2) or die('Erreur SQL !<br />'.$sql1.'<br />'.mysqli_error($connect));
  //On affiche les lignes du tableau une à une à l'aide d'une boucle
                   while($data = mysqli_fetch_array($req))

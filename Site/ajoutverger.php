@@ -8,17 +8,29 @@
 
  //on se connecte a la base de données
   require('connexionbdd.php');
-  // on teste si une entrée de la base contient ce couple login / pass
+  
+  //on selectionne l'id de l'utilisateur connecté
   $sql = "SELECT idUser FROM user WHERE login='$login' ";
 
+  // on execute la requete SQL
   $req = mysqli_query($connect,$sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysqli_error($connect));
+
+ // on retourne le données recupere dans la variable $data  
   $data = mysqli_fetch_array($req);
+
+  // on attribue l'id de l'utilisateur connecté à la valeur $idUser
   $idUser=$data['idUser'];
 
+// on selectionne l'id du producteur en fonction de son idUser
   $sql1 = "SELECT idProducteur FROM producteur WHERE idUser='$idUser' ";
 
+  //on execute la requete SQL
   $req = mysqli_query($connect,$sql1) or die('Erreur SQL !<br />'.$sql1.'<br />'.mysqli_error($connect));
-  $data = mysqli_fetch_array($req);
+
+    // on retourne le données recupere dans la variable $data
+    $data = mysqli_fetch_array($req);
+
+  // on attribue l'id du producteur connecté à la valeur $idProducteur  
   $idProducteur=$data['idProducteur'];
 
   
@@ -79,10 +91,10 @@
      <input type="submit" value="Annuler" name="annulation"/>
     </div>
      <?php
-    
+    // on détermine si les variable validé sont NULL
      if(isset($_POST['validation']) )
      {  
-        
+        //on place dans des variable les valeurs passé en POST
         $nomVerger=$_POST['nomVerger'];
         $superficie=$_POST['superficie'];
         $hectare=$_POST['hectare'];
@@ -102,16 +114,23 @@
            
              
               
-               
+              // on insere les données dans la table commune 
               $sql = "INSERT INTO commune(nomCom, aoc_o_n_) VALUES ('$nomCom','$aoc_o_n_')";
+              // on execute la requete SQL
               mysqli_query ($connect,$sql);
              
             
 
-
+              // on selectionne l'id de la commune en fonction du nom de la commune
               $sql1= "SELECT idCom FROM commune WHERE nomCom = '$nomCom'";
+
+              //on execute la requete SQL
               $req = mysqli_query($connect,$sql1) or die('Erreur SQL !<br />'.$sql1.'<br />'.mysqli_error($connect));
+
+                // on retourne le données recupere dans la variable $data
               $data = mysqli_fetch_array($req);
+
+              //on attribue l'id de la commune a la variable $idCom
               $idCom = $data['idCom'];
 
 

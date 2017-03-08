@@ -60,12 +60,13 @@ require('connexionbdd.php');
     </div>
     
   <?php
-    
+    // on détermine si les variable validé sont NULL
      if(isset($_POST['validation']) )
      {  
-        
+         //on place dans des variable les valeurs passé en POST
         $login=$_POST['login'];
         $temp=$_POST['mdp'];
+        // on crypte le mot de passe en md5 et on le fait commencer par $2a$11$
         $mdp = crypt($temp,'$2a$11$'.md5($temp).'$'); 
   
         
@@ -73,12 +74,13 @@ require('connexionbdd.php');
         
         
 
-
+        // si login et mdp sont non null on poursuit
         if($login&&$mdp)
         {
           
-           
+           // on insere les valeurs dans user
               $sql = "INSERT INTO user (login, mdp, profil) VALUES ('$login','$mdp', 'producteur')";
+            // on execute la requete SQL
               mysqli_query ($connect,$sql);
 
             die("Ajout Producteur terminée  <a href='listeProd.php'>retour a la liste</a>");

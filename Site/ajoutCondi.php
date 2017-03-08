@@ -61,10 +61,10 @@ require('connexionbdd.php');
     </div>
     
   <?php
-    
+    // on détermine si les variable validé sont NULL
      if(isset($_POST['validation']) )
      {  
-        
+        //on place dans des variable les valeurs passé en POST
         $libelleCond=$_POST['libelleCond'];
         $poidsCond=$_POST['poidsCond'];
   
@@ -73,14 +73,15 @@ require('connexionbdd.php');
         
         
 
-
+// si le libelle du conditionnement et du poids du contionnement sont non null on poursuit
         if($libelleCond&&$poidsCond)
         {
             
           
-
+            // on insere les valeurs dans la table conditionnement
            
               $sql = "INSERT INTO conditionnement (libelleCond, poidsCond) VALUES ('$libelleCond','$poidsCond')";
+              // on execute la requete SQL
               mysqli_query ($connect,$sql);
 
             die("Ajout Conditionnement Terminé  <a href='listeConditionnement.php'>retour a la liste</a>");

@@ -58,10 +58,10 @@ require('connexionbdd.php');
     </div>
     
   <?php
-    
+    // on détermine si les variable validé sont NULL
      if(isset($_POST['validation']) )
      {  
-        
+        //on place dans des variable les valeurs passé en POST 
         $libelleCertificat=$_POST['libelleCertificat'];
       
   
@@ -70,13 +70,14 @@ require('connexionbdd.php');
         
         
 
-
+        // si la variable libelleCertificat est non NULL on poursuit
         if($libelleCertificat)
         {
             
 
-           
+           // on insert le libelle du certificat dans la table certificat
               $sql = "INSERT INTO certificat (libelleCertificat) VALUES ('$libelleCertificat')";
+              // on execute la requete SQL
               mysqli_query ($connect,$sql);
 
             die("Ajout Certifications terminée  <a href='listeCertifications.php'>retour a la liste</a>");

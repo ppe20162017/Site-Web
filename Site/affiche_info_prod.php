@@ -8,16 +8,28 @@
  //on se connecte a la base de données
 require('connexionbdd.php');
 
-  // on teste si une entrée de la base contient ce couple login / pass
+ // on recupere l'id de l'utilisateur connecté
   $sql = "SELECT idUser FROM user WHERE login='$login' ";
 
+//on execute la requete SQL
   $req = mysqli_query($connect,$sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysqli_error($connect));
+
+// on retourne le données recupere dans la variable $data  
   $data = mysqli_fetch_array($req);
+
+  // on attribue l'id de l'utilisateur connecté à la valeur $idUser
   $idUser=$data['idUser'];
+
+  //on selectionne les informations du producteurs connecté
   $sql2 = "SELECT nomProd, prenomProd, nomSociete, adresseSociete, nomRespProd, prenomRespProd FROM producteur WHERE idUser='$idUser' ";
 
+// on execute la requete SQL
   $req = mysqli_query($connect,$sql2) or die('Erreur SQL !<br />'.$sql2.'<br />'.mysqli_error($connect));
+
+  // on retourne le données recupere dans la variable $data 
   $data = mysqli_fetch_array($req);
+
+  //on place dans des variables les données contenu dans $data
   $nomProd=$data['nomProd'];
   $prenomProd=$data['prenomProd'];
   $nomSociete=$data['nomSociete'];
@@ -25,41 +37,53 @@ require('connexionbdd.php');
   $nomRespProd=$data['nomRespProd'];
   $prenomRespProd=$data['prenomRespProd'];
 
+  // on selectionne l'id du producteur en fonction de son niom
+  $sql3 = "SELECT idProducteur FROM producteur WHERE nomProd='$nomProd' ";
 
- $sql3 = "SELECT idProducteur FROM producteur WHERE nomProd='$nomProd' ";
-
+  // on execute la requete SQL
   $req = mysqli_query($connect,$sql3) or die('Erreur SQL !<br />'.$sql3.'<br />'.mysqli_error($connect));
+
+  // on retourne le données recupere dans la variable $data
   $data = mysqli_fetch_array($req);
+
+  // on attribue l'id du producteur connecté à la valeur $idProducteur
   $idProducteur=$data['idProducteur'];
 
+  // on selectionne la date d'adhesion du producteur en fonction de son id
   $sql4 = "SELECT dateAdhesion FROM adherent WHERE idProducteur='$idProducteur' ";
 
+  // on execute la requete SQL
   $req = mysqli_query($connect,$sql4) or die('Erreur SQL !<br />'.$sql4.'<br />'.mysqli_error($connect));
+
+  // on retourne le données recupere dans la variable $data
   $data = mysqli_fetch_array($req);
+
+  // on attribue la date d'adhesion à la valeur $dateAdhesion
   $dateAdhesion=$data['dateAdhesion']; 
 
+  //on selectionne l'id du certificat que possede la producteur
   $sql5 = "SELECT idCertificat FROM avoir WHERE idProducteur='$idProducteur' ";
 
+  //execute la requete SQL
   $req = mysqli_query($connect,$sql5) or die('Erreur SQL !<br />'.$sql5.'<br />'.mysqli_error($connect));
+
+  // on retourne le données recupere dans la variable $data
   $data = mysqli_fetch_array($req);
+
+  // on attribue l'id du certficat à la valeur $idCertificat
   $idCertificat=$data['idCertificat']; 
 
+  //on selectionne le nom de la certification que possede le producteur en fonction de son id
   $sql6 = "SELECT libelleCertificat FROM certificat WHERE idCertificat='$idCertificat' ";
 
+  //on execute la requete SQL
   $req = mysqli_query($connect,$sql6) or die('Erreur SQL !<br />'.$sql6.'<br />'.mysqli_error($connect));
+
+  // on retourne le données recupere dans la variable $data
   $data = mysqli_fetch_array($req);
+
+  // on attribue le libelle du certificat à la valeur $libelleCertificat
   $libelleCertificat=$data['libelleCertificat']; 
-
-
-
-
-
-
-
-
-
- 
-
   ?>
 
 <html>
@@ -116,18 +140,20 @@ require('connexionbdd.php');
     </article>
 
 <?php
+// on détermine si les variable validé sont NULL
 if(isset($_POST['validation']) )
 
      {  
+      //on place dans des variable les valeurs passé en POST
         $nomProd=$_POST['nomProd'];
         $prenomProd=$_POST['prenomProd'];
         $nomSociete=$_POST['nomSociete'];
         $adresseSociete=$_POST['adresseSociete'];
         $nomRespProd=$_POST['nomRespProd'];
         $prenomRespProd=$_POST['prenomRespProd'];
-        
+   //on modifie les informations dans producteur     
         $sql="UPDATE producteur SET nomProd='$nomProd',prenomProd='$prenomProd',nomSociete='$nomSociete',adresseSociete='$adresseSociete', nomRespProd='$nomRespProd', prenomRespProd='$prenomRespProd' WHERE idUser='$idUser' ";
-        
+        // on execute la requete
         mysqli_query ($connect,$sql);
       }
 ?>
