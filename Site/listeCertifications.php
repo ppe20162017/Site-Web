@@ -9,7 +9,7 @@ if (!isset($_SESSION['login'])) {
    
 //on se connecte a la base de données
 require('connexionbdd.php');
-
+// on selectionne les données de la table certificat
      $sql = "SELECT * FROM certificat";
 ?>
   
@@ -59,8 +59,10 @@ require('connexionbdd.php');
                    
                 </tr>
 <?php
-  $req = mysqli_query($connect,$sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysqli_error($connect));
 
+// on execute la requete SQL
+  $req = mysqli_query($connect,$sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysqli_error($connect));
+// on retourne le données recupere dans la variable $data
                   while($data = mysqli_fetch_array($req))
             {
             ?>

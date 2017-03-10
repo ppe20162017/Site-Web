@@ -8,10 +8,13 @@
 
 require('connexionbdd.php');
 
-  // on teste si une entrée de la base contient ce couple login / pass
+  // on recupere l'id de l'utilisateur connecté
   $sql = "SELECT idUser FROM user WHERE login='$login' ";
 
+// on execute la requete SQL 
   $req = mysqli_query($connect,$sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysqli_error($connect));
+
+// on retourne le données recupere dans la variable $data
   $data = mysqli_fetch_array($req);
   ?>
 
@@ -87,10 +90,10 @@ require('connexionbdd.php');
      <input type="submit" value="Annuler" name="annulation"/>
     </div>
      <?php
-    
+    // on détermine si les variable validé sont NULL
      if(isset($_POST['validation']) )
      {  
-        
+       //on place dans des variable les valeurs passé en POST 
         $nomProd=$_POST['nomProd'];
         $prenomProd=$_POST['prenomProd'];
         $nomSociete=$_POST['nomSociete'];
@@ -108,18 +111,29 @@ require('connexionbdd.php');
             
            
 
-           
+           // on insere les données dans la table producteur
               $sql = "INSERT INTO producteur(nomProd, prenomProd, nomSociete, adresseSociete, nomRespProd, prenomRespProd, idUser) VALUES ('$nomProd','$prenomProd','$nomSociete','$adresseSociete', '$nomRespProd','$prenomRespProd','$idUser')";
+
+              //on execute la requete SQL
               mysqli_query ($connect,$sql);
 
-
+              // on selectionne l'id du producteur qui correspond au nom du producteur
              $sql1= "SELECT idProducteur FROM producteur WHERE nomProd = '$nomProd'";
+
+             //on execute la requete SQL
               $req = mysqli_query($connect,$sql1) or die('Erreur SQL !<br />'.$sql1.'<br />'.mysqli_error($connect));
+
+             // on retourne le données recupere dans la variable $data
               $data = mysqli_fetch_array($req);
+
+  // on attribue l'id du producteur connecté à la valeur $idProducteur
+
               $idProducteur = $data['idProducteur'];
 
-
+// on insere les données dans la table adherent
              $sql = "INSERT INTO adherent(dateAdhesion, idProducteur) VALUES ('$dateAdhesion','$idProducteur')";
+
+             //on execute la requete SQL
               mysqli_query ($connect,$sql);
 
 

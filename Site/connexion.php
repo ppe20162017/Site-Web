@@ -22,40 +22,51 @@
 // on teste si le visiteur a soumis le formulaire de connexion
 
 if (isset($_POST['submit']) && $_POST['submit'] == 'Connexion') {
+//on place dans des variable les valeurs passé en POST
   $login=$_POST['login'];
   $temp=$_POST['mdp'];
+  // on crypte le mot de passe
   $mdp = crypt($temp,'$2a$11$'.md5($temp).'$'); 
 
+  // on teste l'existence de nos variables. On teste également si elles ne sont pas vides
   if ((isset($_POST['login']) && !empty($_POST['login'])) && (isset($_POST['mdp']) && !empty($_POST['mdp']))){ 
     //on se connecte a la base de données
     require('connexionbdd.php');
 
-  // on teste si une entrée de la base contient ce couple login / pass
+ //on selectionne dans la table user les données qui corresepondent au login et au mdp rentré
   $sql = "SELECT * FROM user WHERE login='$login' && mdp='$mdp' ";
 
+//on execute la requete SQl
   $req = mysqli_query($connect,$sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysqli_error($connect));
+
+   // on retourne le données recupere dans la variable $data
   $data = mysqli_fetch_array($req);
 
+//Retourne un tableau associatif qui correspond à la ligne récupérée ou NULL s'il n'y a plus de ligne.
   mysqli_fetch_assoc($req);
+
+   //Ferme une connexion
   mysqli_close($connect);
-  // si on obtient une réponse, alors l'utilisateur est un membre
+  // si le mot de passe ne correpond pas
  if($data['mdp'] != $mdp) {
     echo '<p>Mauvais login / password. Merci de recommencer</p>';    
     exit;
   }
   else {
+    // si il correspond on ouvre une session
     session_start();
     $_SESSION['login'] = $login;
-
+// si son profil est producteur on l'envoi sur l'espace producteur
    if($data['profil'] == 'producteur')
     {
     header('location: accueilprod.php');
     }
- 
+ // si son profil est administrateur on l'envoi sur l'espace administrateur
     elseif($data['profil'] == 'administrateur')
     {
         header('location: listeProd.php');
     }
+    //si son profil est client on l'envoi sur l'espcae client
     elseif($data['profil'] == 'client')
     {
         header('location: accueilclient.php');
@@ -71,9 +82,10 @@ if (isset($_POST['submit']) && $_POST['submit'] == 'Connexion') {
   }    
 }
   else {
-    // Le visiteur n'a pas été reconnu comme étant membre de notre site. On utilise alors un petit javascript lui signalant ce fait
+   
     echo '<body onLoad="alert(\'Membre non reconnu...\')">';
-    // puis on le redirige vers la page d'accueil
+    
+
     echo '<meta http-equiv="refresh" content="0;URL=index.htm">';
   }
 }

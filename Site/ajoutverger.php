@@ -137,17 +137,25 @@
             
 
 
-
+              // on selectionne l'id de la variete qui correspond au libelle de la variete rentré
               $sql2= "SELECT idVar FROM variete WHERE libelleVar = '$libelleVar'";
+
+              //on execute la requete SQL
               $req = mysqli_query($connect,$sql2) or die('Erreur SQL !<br />'.$sql2.'<br />'.mysqli_error($connect));
+
+               // on retourne le données recupere dans la variable $data
               $data = mysqli_fetch_array($req);
+
+              //on attribue l'id de la variete a la variable $idVar
               $idVar = $data['idVar'];
 
 
 
 
-              
+             // on insert dans la table vergers  
              $sql3 = "INSERT INTO vergers(nomVerger, superficie, hectare, idVar, idCom, idProducteur) VALUES ('$nomVerger','$superficie','$hectare','$idVar','$idCom','$idProducteur')";
+
+             // on execute la requete SQL
              mysqli_query ($connect,$sql3);
 
               die("Enregistrement terminé <a href='affiche_info_prod.php'>allez voir vos infos</a>");

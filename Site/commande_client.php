@@ -71,9 +71,17 @@ if (!isset($_SESSION['login'])) {
 
                 
                 <?php
+
+                //on selectionne les données de la table lots
                    $sql = "SELECT * FROM lots  ";
+
+                   //on execute la requete SQL
                   $req = mysqli_query($connect,$sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysqli_error($connect));
+
+                   // on retourne le données recupere dans la variable $data
                   while($data = mysqli_fetch_array($req)){
+
+                    //on attribue l'id de livraison a la variable $idLivraison
                     $idLivraison=$data['idLivraison'];
                                ?>
 
@@ -88,10 +96,16 @@ if (!isset($_SESSION['login'])) {
                 
 
                            
-             
-                  $sql1 = "SELECT * FROM livraison WHERE idLivraison = '$idLivraison'";                  
+                //on selectionne les données de la table livraison qui correspondent à l'id de livraison
+                  $sql1 = "SELECT * FROM livraison WHERE idLivraison = '$idLivraison'";
+
+                  //on execute la requete SQL                  
                  $req1 = mysqli_query($connect,$sql1) or die('Erreur SQL !<br />'.$sql1.'<br />'.mysqli_error($connect));
+
+                  // on retourne le données recupere dans la variable $data1
                  while($data1 = mysqli_fetch_array($req1)){
+
+                  //on attribue l'id vergers a la variable $idVergers
                    $idVergers=$data1['idVergers']; ?>
 
                  
@@ -101,14 +115,26 @@ if (!isset($_SESSION['login'])) {
 
 
                  <?php
-     $sql2 = "SELECT * FROM vergers WHERE idVergers = '$idVergers'";                  
+
+                 //on selectionne les données de la table vergers en fonction de l'id vergers
+     $sql2 = "SELECT * FROM vergers WHERE idVergers = '$idVergers'";          
+     //on execute la requete SQL        
                  $req2 = mysqli_query($connect,$sql2) or die('Erreur SQL !<br />'.$sql2.'<br />'.mysqli_error($connect));
+
+                  // on retourne le données recupere dans la variable $data2
                  while($data2 = mysqli_fetch_array($req2)){
+
+                  // on attribue l'id de la variete a la variable $idVar
                    $idVar=$data2['idVar']; ?>
 
                          <?php
+
+                         //on selectionne les données de la table variete qui correspondent a l'id de la variete
      $sql3 = "SELECT * FROM variete WHERE idVar = '$idVar'";                  
+     // on execute la requete SQL
                  $req3 = mysqli_query($connect,$sql3) or die('Erreur SQL !<br />'.$sql3.'<br />'.mysqli_error($connect));
+
+                 // on retourne le données recupere dans la variable $data
                  while($data3 = mysqli_fetch_array($req3)){
                    
 

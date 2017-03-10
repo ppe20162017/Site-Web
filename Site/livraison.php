@@ -9,16 +9,28 @@
 
  require('connexionbdd.php');
 
+  // on selectionne l'id de l'utilisateur connecté 
  $sql = "SELECT idUser FROM user WHERE login='$login' ";
 
+//on execute la requete SQL
   $req = mysqli_query($connect,$sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysqli_error($connect));
+
+   // on retourne le données recupere dans la variable $data
   $data = mysqli_fetch_array($req);
+
+    //on attribue l'id de l'utilisateur a la variable $idUser
   $idUser=$data['idUser'];
 
+  // on selectionne l'id du producteur qui est connecté
   $sql1 = "SELECT idProducteur FROM producteur WHERE idUser='$idUser' ";
 
+//on execute la requete SQL
   $req = mysqli_query($connect,$sql1) or die('Erreur SQL !<br />'.$sql1.'<br />'.mysqli_error($connect));
+
+  // on retourne le données recupere dans la variable $data
   $data = mysqli_fetch_array($req);
+
+  //on attribue l'id du producteur a la variable $idProducteur
   $idProducteur=$data['idProducteur'];
  
 
@@ -68,9 +80,21 @@
      
         <label> De quel verger provient cette livraison ?<br> <br> <select name="nomVerger">
 
-        <?php  $sql2 = "SELECT nomVerger FROM vergers WHERE idProducteur='$idProducteur'";
+
+
+        <?php 
+
+        //on selectionne le nom du verger en fonction de l'id du producteur
+         $sql2 = "SELECT nomVerger FROM vergers WHERE idProducteur='$idProducteur'";
+
+         //on execute la requete SQL
         $req = mysqli_query($connect,$sql2) or die('Erreur SQL !<br />'.$sql1.'<br />'.mysqli_error($connect));
-        while($data = mysqli_fetch_array($req)) {  ?>        
+
+
+   // on retourne le données recupere dans la variable $data
+        while($data = mysqli_fetch_array($req)) {  ?>
+
+
         <option value ="<?php echo $data['nomVerger']; ?>"> <?php echo $data['nomVerger'];?></option>
         <?php } ?> </option></select></label>  
  <script>
@@ -113,10 +137,10 @@
      <input type="submit" value="Annuler" name="annulation"/>
     </div>
      <?php
-    
+    // on détermine si les variable validé sont NULL
      if(isset($_POST['validation']) )
      {  
-        
+         //on place dans des variable les valeurs passé en POST 
         $dateLiv=$_POST['dateLiv'];
         $typeProduitLiv=$_POST['typeProduitLiv'];
         $quantiteLiv=$_POST['quantiteLiv'];
@@ -130,15 +154,22 @@
        
 
 
-
+// on selectionne l'id du verger en fonction du nom de verger
           $sql1= "SELECT idVergers FROM vergers WHERE nomVerger = '$nomVerger'";
+
+        //on execute la requete SQL
               $req = mysqli_query($connect,$sql1) or die('Erreur SQL !<br />'.$sql1.'<br />'.mysqli_error($connect));
+
+               // on retourne le données recupere dans la variable $data
               $data = mysqli_fetch_array($req);
+
+              //on attribue l'id du verger a la variable $idVergers
               $idVergers = $data['idVergers'];
 
 
-           
+            //on insere les données dans la table livraison
               $sql = "INSERT INTO livraison(dateLiv, typeProduitLiv, quantiteLiv, idVergers) VALUES ('$dateLiv','$typeProduitLiv','$quantiteLiv','$idVergers')";
+              //on execute la requete SQL
               mysqli_query ($connect,$sql);
               die("Enregistrement terminé <a href='affiche_info_prod.php'>allez voir vos infos</a>");
             }

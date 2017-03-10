@@ -9,7 +9,7 @@ if (!isset($_SESSION['login'])) {
    
 //on se connecte a la base de données
   require('connexionbdd.php');
-
+// on selectionne les données de la table producteur
      $sql = "SELECT * FROM producteur";
 ?>
   
@@ -63,8 +63,10 @@ if (!isset($_SESSION['login'])) {
                    
                 </tr>
 <?php
+//on execute la requete SQL
   $req = mysqli_query($connect,$sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysqli_error($connect));
 
+// on retourne le données recupere dans la variable $data
                   while($data = mysqli_fetch_array($req))
             {
             ?>

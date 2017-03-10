@@ -37,7 +37,7 @@ require('connexionbdd.php');
   $nomRespProd=$data['nomRespProd'];
   $prenomRespProd=$data['prenomRespProd'];
 
-  // on selectionne l'id du producteur en fonction de son niom
+  // on selectionne l'id du producteur en fonction de son nom
   $sql3 = "SELECT idProducteur FROM producteur WHERE nomProd='$nomProd' ";
 
   // on execute la requete SQL

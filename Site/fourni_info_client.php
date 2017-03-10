@@ -7,10 +7,13 @@
     //on se connecte a la base de données
 require('connexionbdd.php');
 
-  // on teste si une entrée de la base contient ce couple login / pass
+ // on recupere l'id de l'utilisateur connecté
   $sql = "SELECT idUser FROM user WHERE login='$login' ";
 
+  // on execute la requete SQL 
   $req = mysqli_query($connect,$sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysqli_error($connect));
+
+ // on retourne le données recupere dans la variable $data 
   $data = mysqli_fetch_array($req);
   ?>
 
@@ -59,10 +62,10 @@ require('connexionbdd.php');
     </article>
 
     <?php
-    
+    // on détermine si les variable validé sont NULL
      if(isset($_POST['validationconnexion']) )
      {  
-        
+      //on place dans des variable les valeurs passé en POST 
         $nomClient=$_POST['nomClient'];
         $adresseClient=$_POST['adresseClient'];
         $nomRespAchat=$_POST['nomRespAchat'];
@@ -76,8 +79,10 @@ require('connexionbdd.php');
             
        
 
-           
+           // on insere les données dans la table client
               $sql = "INSERT INTO client(nomClient, adresseClient, nomRespAchat, idUser) VALUES ('$nomClient','$adresseClient','$nomRespAchat','$idUser')";
+
+              //on execute la requete SQL
               mysqli_query ($connect,$sql);
               die("Inscription terminée Client <a href='connexion.php'>connectez vous</a>");
             }

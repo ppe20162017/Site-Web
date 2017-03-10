@@ -9,7 +9,7 @@ if (!isset($_SESSION['login'])) {
    
 //on se connecte a la base de données
 require('connexionbdd.php');
-
+// on selectionne les données de la table conditionnement
      $sql = "SELECT * FROM conditionnement";
 ?>
   

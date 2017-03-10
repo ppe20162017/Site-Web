@@ -70,9 +70,17 @@ require('connexionbdd.php');
 
                 
                 <?php
+                //on selectionne les données de la table livraison
                    $sql = "SELECT * FROM livraison  ";
+
+                   //on execute la requete SQL
                   $req = mysqli_query($connect,$sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysqli_error($connect));
+
+
+              // on retourne le données recupere dans la variable $data
                   while($data = mysqli_fetch_array($req)){
+
+                    //on attribue l'id de livraison dans la variable $idLivraison
                     $idLivraison = $data['idLivraison'];
 
                     ?>
@@ -87,13 +95,17 @@ require('connexionbdd.php');
                 
                 <?php
                 
-
+                //on attribue l'id du verger dans la variable $idVergers
                   $idVergers=$data['idVergers'];
 
                 
-             
-                  $sql1 = "SELECT nomVerger, idProducteur FROM vergers WHERE idVergers = '$idVergers'";                  
+             // on selectionne les données de la table vergers qui correspondent a l'id vergers
+                  $sql1 = "SELECT nomVerger, idProducteur FROM vergers WHERE idVergers = '$idVergers'";
+
+                  // on execute la requete SQL                  
                  $req1 = mysqli_query($connect,$sql1) or die('Erreur SQL !<br />'.$sql1.'<br />'.mysqli_error($connect));
+
+                 // on retourne le données recupere dans la variable $data1
                  while($data1 = mysqli_fetch_array($req1)){ ?>
 
                  

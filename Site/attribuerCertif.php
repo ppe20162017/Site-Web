@@ -56,10 +56,20 @@ require('connexionbdd.php');
 
         <label> Quel est la certification que vous voulez attribuer?<br> <br> <select name="libelleCertificat">
 
-        <?php  $sql2 = "SELECT libelleCertificat FROM certificat";
+
+        <?php 
+        //on selectionne les libelles de certificatation
+         $sql2 = "SELECT libelleCertificat FROM certificat";
+
+         // on execute la requete SQL
         $req = mysqli_query($connect,$sql2) or die('Erreur SQL !<br />'.$sql1.'<br />'.mysqli_error($connect));
-        while($data = mysqli_fetch_array($req)) {  ?>        
-        <option value ="<?php echo $data['libelleCertificat']; ?>"> <?php echo $data['libelleCertificat'];?></option>
+
+         // on retourne le données recupere dans la variable $data
+        while($data = mysqli_fetch_array($req)) {  ?>  
+
+        <option value ="<?php echo $data['libelleCertificat']; ?>"> <?php
+        // on affiche les libelles des certifications
+         echo $data['libelleCertificat'];?></option>
         <?php } ?> </option></select></label> 
 
 
@@ -67,10 +77,19 @@ require('connexionbdd.php');
 
         <label> Quel est le producteur a qui vous voulez attribur cette certification ?<br> <br> <select name="nomProd">
 
-        <?php  $sql2 = "SELECT nomProd FROM producteur";
+        <?php 
+
+        // on selectionne les noms des producteurs
+         $sql2 = "SELECT nomProd FROM producteur";
+
+         // on execute la requete SQL
         $req = mysqli_query($connect,$sql2) or die('Erreur SQL !<br />'.$sql1.'<br />'.mysqli_error($connect));
+
+        // on retourne le données recupere dans la variable $data 
         while($data = mysqli_fetch_array($req)) {  ?>        
-        <option value ="<?php echo $data['nomProd']; ?>"> <?php echo $data['nomProd'];?></option>
+        <option value ="<?php echo $data['nomProd']; ?>"> <?php
+//on affiche les noms des producteurs
+         echo $data['nomProd'];?></option>
         <?php } ?> </option></select></label>  
  <script>
   jQuery(function ($) {
@@ -105,10 +124,10 @@ require('connexionbdd.php');
      <input type="submit" value="Annuler" name="annulation"/>
     </div>
       <?php
-    
+     // on détermine si les variable validé sont NULL
      if(isset($_POST['validation']) )
      {  
-        
+        //on place dans des variable les valeurs passé en POST
         $dateObtention=$_POST['dateObtention'];
         $libelleCertificat=$_POST['libelleCertificat'];
         $nomProd=$_POST['nomProd'];
@@ -122,19 +141,35 @@ require('connexionbdd.php');
        
 
 
-
+          // on selectionne l'id du producteur selectionner
           $sql1= "SELECT idProducteur FROM producteur WHERE nomProd = '$nomProd'";
+
+        // on execute la requete SQL
               $req = mysqli_query($connect,$sql1) or die('Erreur SQL !<br />'.$sql1.'<br />'.mysqli_error($connect));
+
+              // on retourne le données recupere dans la variable $data
               $data = mysqli_fetch_array($req);
+
+              //on attribue l'id du producteur a la variable $idProducteur
               $idProducteur = $data['idProducteur'];
 
+
+              // on selectionne l'id du certificat selectionner
           $sql2= "SELECT idCertificat FROM certificat WHERE libelleCertificat = '$libelleCertificat'";
+
+          //on execute la requete SQL
               $req = mysqli_query($connect,$sql2) or die('Erreur SQL !<br />'.$sql2.'<br />'.mysqli_error($connect));
+
+              // on retourne le données recupere dans la variable $data
               $data = mysqli_fetch_array($req);
+
+              //on attribue l'id du certificat a la variable $idCertificat
               $idCertificat = $data['idCertificat'];
 
-           
+              // on insere les données dans la table obtention
               $sql = "INSERT INTO avoir(dateObtention, idProducteur, idCertificat) VALUES ('$dateObtention','$idProducteur','$idCertificat')";
+
+              //on execute la requete SQL
               mysqli_query ($connect,$sql);
               die("Attribution de la certification terminé <a href='listeProd.php'>retour a l'accueil</a>");
             }

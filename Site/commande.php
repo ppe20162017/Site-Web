@@ -9,17 +9,28 @@
  //on se connecte a la base de données
    require('connexionbdd.php');
 
-   
+  // on selectionne l'id de l'utilisateur connecté 
  $sql = "SELECT idUser FROM user WHERE login='$login' ";
 
+//on execute la requete SQL
   $req = mysqli_query($connect,$sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysqli_error($connect));
+
+  // on retourne le données recupere dans la variable $data
   $data = mysqli_fetch_array($req);
+
+  //on attribue l'id de l'utilisateur a la variable $idUser
   $idUser=$data['idUser'];
 
+// on selectionne l'id du client qui est connecté
   $sql1 = "SELECT idClient FROM client WHERE idUser='$idUser' ";
 
+//on execute la requete SQL
   $req = mysqli_query($connect,$sql1) or die('Erreur SQL !<br />'.$sql1.'<br />'.mysqli_error($connect));
+
+   // on retourne le données recupere dans la variable $data
   $data = mysqli_fetch_array($req);
+
+   //on attribue l'id du client a la variable $idClient
   $idClient=$data['idClient'];
  
 
@@ -68,10 +79,18 @@
      
         <label> Quel lot souhaitez-vous commander<br> <br> <select name="numLots">
 
-        <?php  $sql2 = "SELECT * FROM lots ";
+        <?php 
+        //on selctionne les données de la table lot
+         $sql2 = "SELECT * FROM lots ";
+
+         // on execute la requete
         $req = mysqli_query($connect,$sql2) or die('Erreur SQL !<br />'.$sql1.'<br />'.mysqli_error($connect));
+
+          // on retourne le données recupere dans la variable $data
         while($data = mysqli_fetch_array($req)) {  ?>        
-        <option value ="<?php echo $data['numLots']; ?>"> <?php echo $data['numLots'];?></option>
+        <option value ="<?php echo $data['numLots']; ?>"> <?php 
+        // on affiche les numeros des lots
+        echo $data['numLots'];?></option>
         <?php } ?> </option></select></label>  
 
        
@@ -79,19 +98,31 @@
 
 
         <?php
+        // on attribue le numero de lot dans la variable $nomLots
         $numLots=$data['numLots'];
 
-
+//on selectionne l'id de livraison du lots selectionner
  $sql = "SELECT idLivraison FROM lots WHERE numLots='$numLots' ";
 
+//on execute la requete SQL
   $req = mysqli_query($connect,$sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysqli_error($connect));
+
+  // on retourne le données recupere dans la variable $data
   $data = mysqli_fetch_array($req);
+
+  //on attribue l'id de la livraison dans la variable $idLivraison
   $idLivraison=$data['idLivraison'];
 
+//on selectionne la quantité livré en fonction de l'id de la livraison
   $sql1 = "SELECT quantiteLiv FROM livraison WHERE idLivraison='$idLivraison' ";
 
+//on execute la requete SQL
   $req = mysqli_query($connect,$sql1) or die('Erreur SQL !<br />'.$sql1.'<br />'.mysqli_error($connect));
+
+   // on retourne le données recupere dans la variable $data
   $data = mysqli_fetch_array($req);
+
+  //on attribue la quantité livré dans la variable $quantiteLIv
   $quantiteLiv=$data['quantiteLiv'];
 
 echo $quantiteLiv;
@@ -136,9 +167,10 @@ echo $quantiteLiv;
           <br>
       
          <?php
+         // on détermine si les variable validé sont NULL
  if(isset($_POST['conditionnement']) )
      { 
-
+ //on place dans des variable les valeurs passé en POST
     $S250=$_POST['Sachet250'];
     $S500=$_POST['Sachet500'];
     $S1000=$_POST['Sachet1000'];
@@ -148,15 +180,20 @@ echo $quantiteLiv;
     $F25000=$_POST['Filet25000'];
     $C10000=$_POST['Carton10000'];
 
-
+// on calcul la quantité que le producteur a entrer
   $quantite=$S250*250 + $S500*500 + $S1000*1000 + $F1000 * 1000 + $F5000 * 5000 + $F10000 * 10000 + $F25000 * 25000 + $C10000 * 10000;
-
+// on affiche le total du poids de conditionnement
   echo 'Total du poids du conditionnement '.$quantite.'Gr';
 
 }
+//on selectionne les données de la table commande, client et lots
  $sql2="SELECT * FROM commande com, client cli, lots l WHERE com.idClient=cli.idClient AND l.numLots=com.numLots ";
+
+ //on execute la requete
       $req = mysqli_query($connect,$sql2) or die('Erreur SQL !<br />'.$sql2.'<br />'.mysqli_error($connect));
+      // on retourne le données recupere dans la variable $l
                   while($l = mysqli_fetch_array($req)){
+                    // on affiche le numero de lots, le numero de commande et l'id du client dans un fichier pdf
       echo "<a href='./pdf.php?lot=".$l['numLots']."&com=".$l['numeroCommande']."&cli=".$l['idClient']."'>Votre bon de commande</a></td></tr>"; 
     }
     
@@ -184,28 +221,37 @@ echo $quantiteLiv;
 
    <?php
 
-
+  // on détermine si les variable validé sont NULL
    if(isset($_POST['validation']) )
      {  
-        
+        //on place dans des variable les valeurs passé en POST
         $numLots=$_POST['numLots'];
         $dateCommande=$_POST['dateCom'];
         
         
 
 
-           
+           // on insere les données dans la table commande 
               $sql = "INSERT INTO commande (dateCommande, numLots, idClient) VALUES ('$dateCommande', '$numLots','$idClient')";
+              // on execute la requete SQL
               mysqli_query ($connect,$sql);
 
+              //on selectionne le numero de commande en fonction du numero de lot et du l'id du client
               $sql1 ="SELECT numeroCommande FROM commande WHERE numLots='$numLots' AND idClient='$idClient'" ;
 
+// on excute la requete SQL
              $req = mysqli_query($connect,$sql1) or die('Erreur SQL !<br />'.$sql1.'<br />'.mysqli_error($connect));
+
+              // on retourne le données recupere dans la variable $data
              $data = mysqli_fetch_array($req);
+
+             //on attribue le numero de commande dans la variable $numeroCommande
              $numeroCommande=$data['numeroCommande'];
 
-
+             // on insere les données dans la table comporter
              $sql2 ="INSERT INTO comporter (quantite, numeroCommande) VALUES ('$quantite','$numeroCommande')";
+
+             //on execute la requete SQL
              mysqli_query ($connect,$sql2);
 
 
