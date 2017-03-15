@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Lun 12 Décembre 2016 à 15:29
+-- Généré le :  Mer 15 Mars 2017 à 15:18
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -38,8 +38,7 @@ CREATE TABLE IF NOT EXISTS `adherent` (
 --
 
 INSERT INTO `adherent` (`dateAdhesion`, `idProducteur`) VALUES
-('2016-12-11', 7),
-('2016-12-07', 8);
+('2017-03-06', 9);
 
 -- --------------------------------------------------------
 
@@ -56,13 +55,6 @@ CREATE TABLE IF NOT EXISTS `avoir` (
   UNIQUE KEY `idCertificat_2` (`idCertificat`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Contenu de la table `avoir`
---
-
-INSERT INTO `avoir` (`dateObtention`, `idProducteur`, `idCertificat`) VALUES
-('2016-12-12', 8, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -74,14 +66,7 @@ CREATE TABLE IF NOT EXISTS `certificat` (
   `libelleCertificat` varchar(25) DEFAULT NULL,
   PRIMARY KEY (`idCertificat`),
   UNIQUE KEY `idCertificat` (`idCertificat`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
-
---
--- Contenu de la table `certificat`
---
-
-INSERT INTO `certificat` (`idCertificat`, `libelleCertificat`) VALUES
-(1, 'certifications bio');
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -92,21 +77,20 @@ INSERT INTO `certificat` (`idCertificat`, `libelleCertificat`) VALUES
 CREATE TABLE IF NOT EXISTS `client` (
   `idClient` int(11) NOT NULL AUTO_INCREMENT,
   `nomClient` varchar(25) DEFAULT NULL,
-  `adresseClient` varchar(25) DEFAULT NULL,
+  `adresseClient` varchar(255) DEFAULT NULL,
   `nomRespAchat` varchar(25) DEFAULT NULL,
   `idUser` int(11) NOT NULL,
   PRIMARY KEY (`idClient`),
   UNIQUE KEY `idUser` (`idUser`),
   UNIQUE KEY `idClient` (`idClient`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Contenu de la table `client`
 --
 
 INSERT INTO `client` (`idClient`, `nomClient`, `adresseClient`, `nomRespAchat`, `idUser`) VALUES
-(4, 'Margaux', '3 impasse de pres ', 'Gilles', 11),
-(5, 'Lucie', '146 rue de ballon', 'Christophe', 12);
+(8, 'jules', '12 avenue d ypres', 'marc', 30);
 
 -- --------------------------------------------------------
 
@@ -119,9 +103,16 @@ CREATE TABLE IF NOT EXISTS `commande` (
   `dateCommande` date DEFAULT NULL,
   `numLots` int(11) NOT NULL,
   `idClient` int(11) NOT NULL,
-  PRIMARY KEY (`numeroCommande`),
-  UNIQUE KEY `idClient` (`idClient`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  PRIMARY KEY (`numeroCommande`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+--
+-- Contenu de la table `commande`
+--
+
+INSERT INTO `commande` (`numeroCommande`, `dateCommande`, `numLots`, `idClient`) VALUES
+(4, '2017-03-06', 7, 8),
+(5, '2017-03-06', 7, 8);
 
 -- --------------------------------------------------------
 
@@ -135,15 +126,14 @@ CREATE TABLE IF NOT EXISTS `commune` (
   `aoc_o_n_` char(25) DEFAULT NULL,
   PRIMARY KEY (`idCom`),
   UNIQUE KEY `idCom` (`idCom`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=65 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=66 ;
 
 --
 -- Contenu de la table `commune`
 --
 
 INSERT INTO `commune` (`idCom`, `nomCom`, `aoc_o_n_`) VALUES
-(63, 'TOUFFLERS', 'oui'),
-(64, 'hb', 'non');
+(65, 'arles', 'oui');
 
 -- --------------------------------------------------------
 
@@ -152,10 +142,20 @@ INSERT INTO `commune` (`idCom`, `nomCom`, `aoc_o_n_`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `comporter` (
-  `quantité` int(11) NOT NULL,
-  `idCond` int(11) NOT NULL,
-  UNIQUE KEY `idCond` (`idCond`)
+  `quantite` int(11) NOT NULL,
+  `numeroCommande` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `comporter`
+--
+
+INSERT INTO `comporter` (`quantite`, `numeroCommande`) VALUES
+(1750, 0),
+(31500, 0),
+(33500, 3),
+(45000, 4),
+(45000, 4);
 
 -- --------------------------------------------------------
 
@@ -168,23 +168,10 @@ CREATE TABLE IF NOT EXISTS `conditionnement` (
   `libelleCond` varchar(25) DEFAULT NULL,
   `poidsCond` float DEFAULT NULL,
   `dateCond` date DEFAULT NULL,
+  `numeroCommande` int(11) NOT NULL,
   PRIMARY KEY (`idCond`),
   UNIQUE KEY `idCond` (`idCond`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
-
---
--- Contenu de la table `conditionnement`
---
-
-INSERT INTO `conditionnement` (`idCond`, `libelleCond`, `poidsCond`, `dateCond`) VALUES
-(1, 'sachet ( en Gr )', 250, NULL),
-(2, 'sachet ( en Gr )', 500, NULL),
-(3, 'sachet ( en Kg )', 1, NULL),
-(4, 'Filet ( en Kg )', 1, NULL),
-(5, 'Filet ( en Kg )', 5, NULL),
-(6, 'Filet ( en Kg )', 10, NULL),
-(7, 'Filet ( en Kg )', 25, NULL),
-(8, 'Carton ( en Kg )', 10, NULL);
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -200,15 +187,14 @@ CREATE TABLE IF NOT EXISTS `livraison` (
   `idVergers` int(11) NOT NULL,
   PRIMARY KEY (`idLivraison`),
   UNIQUE KEY `idLivraison` (`idLivraison`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Contenu de la table `livraison`
 --
 
 INSERT INTO `livraison` (`idLivraison`, `dateLiv`, `typeProduitLiv`, `quantiteLiv`, `idVergers`) VALUES
-(6, '2016-12-12', 'entiere seche', 45, 105),
-(7, '2016-12-13', 'entiere fraiche', 47, 106);
+(8, '2017-03-06', 'entiere seche', 456, 107);
 
 -- --------------------------------------------------------
 
@@ -219,12 +205,18 @@ INSERT INTO `livraison` (`idLivraison`, `dateLiv`, `typeProduitLiv`, `quantiteLi
 CREATE TABLE IF NOT EXISTS `lots` (
   `numLots` int(11) NOT NULL AUTO_INCREMENT,
   `calibreLot` float DEFAULT NULL,
-  `typeProduit` varchar(255) NOT NULL,
   `idLivraison` int(11) NOT NULL,
   PRIMARY KEY (`numLots`),
   UNIQUE KEY `numLots` (`numLots`),
   UNIQUE KEY `idLivraison` (`idLivraison`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+
+--
+-- Contenu de la table `lots`
+--
+
+INSERT INTO `lots` (`numLots`, `calibreLot`, `idLivraison`) VALUES
+(7, 22, 8);
 
 -- --------------------------------------------------------
 
@@ -237,22 +229,21 @@ CREATE TABLE IF NOT EXISTS `producteur` (
   `nomProd` varchar(25) DEFAULT NULL,
   `prenomProd` varchar(25) DEFAULT NULL,
   `nomSociete` varchar(25) DEFAULT NULL,
-  `adresseSociete` varchar(25) DEFAULT NULL,
+  `adresseSociete` varchar(255) DEFAULT NULL,
   `nomRespProd` varchar(25) DEFAULT NULL,
   `prenomRespProd` varchar(25) DEFAULT NULL,
   `idUser` int(11) NOT NULL,
   PRIMARY KEY (`idProducteur`),
   UNIQUE KEY `idProducteur` (`idProducteur`),
   UNIQUE KEY `iUser` (`idUser`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- Contenu de la table `producteur`
 --
 
 INSERT INTO `producteur` (`idProducteur`, `nomProd`, `prenomProd`, `nomSociete`, `adresseSociete`, `nomRespProd`, `prenomRespProd`, `idUser`) VALUES
-(7, 'Vandevyver', 'Thomas', 'Noixis', '1 rue des peupliers', 'Vandevyver', 'Thierry', 14),
-(8, 'Equinet', 'Laurent', 'VoiNoix', '137 bis rue  de nechin', 'Equinet', 'Claude', 15);
+(9, 'Dupont', 'Jean', 'LaVoixDesNoix', '12', 'Lepras', 'Eric', 29);
 
 -- --------------------------------------------------------
 
@@ -267,18 +258,30 @@ CREATE TABLE IF NOT EXISTS `user` (
   `profil` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`idUser`),
   UNIQUE KEY `idUser` (`idUser`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=31 ;
 
 --
 -- Contenu de la table `user`
 --
 
 INSERT INTO `user` (`idUser`, `login`, `mdp`, `profil`) VALUES
-(11, 'Margaux', '$2a$11$202cb962ac59075b964b0uP8Z0HFNzrua481kU2zRChVrxfjr9tAS', 'client'),
-(12, 'Lucie', '$2a$11$202cb962ac59075b964b0uP8Z0HFNzrua481kU2zRChVrxfjr9tAS', 'client'),
 (13, 'Tanguy', '$2a$11$202cb962ac59075b964b0uP8Z0HFNzrua481kU2zRChVrxfjr9tAS', 'administrateur'),
-(14, 'thomas', '$2a$11$202cb962ac59075b964b0uP8Z0HFNzrua481kU2zRChVrxfjr9tAS', 'producteur'),
-(15, 'laurent', '$2a$11$202cb962ac59075b964b0uP8Z0HFNzrua481kU2zRChVrxfjr9tAS', 'producteur');
+(28, 'Benoit', '$2a$11$202cb962ac59075b964b0uP8Z0HFNzrua481kU2zRChVrxfjr9tAS', 'administrateur'),
+(29, 'jean ', '$2a$11$202cb962ac59075b964b0uP8Z0HFNzrua481kU2zRChVrxfjr9tAS', 'producteur'),
+(30, 'jules', '$2a$11$202cb962ac59075b964b0uP8Z0HFNzrua481kU2zRChVrxfjr9tAS', 'client');
+
+--
+-- Déclencheurs `user`
+--
+DROP TRIGGER IF EXISTS `verification`;
+DELIMITER //
+CREATE TRIGGER `verification` BEFORE INSERT ON `user`
+ FOR EACH ROW IF exists(SELECT login FROM USER WHERE login =  NEW.login) 
+THEN	
+	signal sqlstate '45000' set message_text = 'Tentative d'insertion d'un nom qui existe';
+END IF
+//
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -319,15 +322,14 @@ CREATE TABLE IF NOT EXISTS `vergers` (
   `IdProducteur` int(11) NOT NULL,
   PRIMARY KEY (`idVergers`),
   UNIQUE KEY `idVergers` (`idVergers`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=107 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=108 ;
 
 --
 -- Contenu de la table `vergers`
 --
 
 INSERT INTO `vergers` (`idVergers`, `nomVerger`, `superficie`, `hectare`, `idVar`, `idCom`, `IdProducteur`) VALUES
-(105, 'pepiniere', '1200', 6, 2, 63, 8),
-(106, 'jhb', 'hj', 45, 2, 64, 7);
+(107, 'Kiribati', '1250', 6, 2, 65, 9);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
