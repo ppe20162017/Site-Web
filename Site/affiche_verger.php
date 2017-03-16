@@ -74,7 +74,7 @@ require('connexionbdd.php');
                 <tr>
                     <th> Nom du verger </th>
                     <th> Superficie</th>
-                    <th> Nombre d'hectare</th>
+                    <th> Nombre d'arbre par hectare</th>
                
                    
                 </tr>

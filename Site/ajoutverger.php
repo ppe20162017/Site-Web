@@ -72,7 +72,7 @@
         <h1>Ajoutez les vergers que vous possedez :</h1>
         <label> Entrez le nom de votre verger:<br> <br><input type="text" name="nomVerger" /></label>
         <label> Entrez la superficie de ce verger : <br><br><input type="text" name="superficie" /></label>
-        <label> Entrez le nombre d'hectare de ce verger : <br><br><input type="text" name="hectare" /></label>
+        <label> Entrez le nombre d'arbre par hectare de ce verger : <br><br><input type="text" name="hectare" /></label>
         <label> Dans quel commune se situe-t-il ? : <br><br><input type="text" name="nomCom" /></label>
         <label> Est-elle AOC ? : <br><br>
           <input  type= "radio" name="aoc_o_n_" value="oui"> Oui
