@@ -31,11 +31,11 @@ require('connexionbdd.php');
      </section>
         <nav>   
             <ul id="menu">
-                <li><a href="listeProd.php"> Nos Producteurs</a></li>
-                <li><a href="listecertifications.php">Certifications</a></li>
-                <li><a href="listeclient.php">Nos Clients</a></li>
-                 <li><a href="listeconditionnement.php">Conditionnement</a></li>
-                <li><a href="listelivraison.php">Livraison</a></li>
+                 <li><a href="listeProd.php"> Nos Producteurs</a></li>
+                <li><a href="listeCertifications.php">Certifications</a></li>
+                <li><a href="listeClient.php">Nos Clients</a></li>
+                 <li><a href="listeConditionnement.php">Conditionnement</a></li>
+                <li><a href="listeLivraison.php">Livraison</a></li>
                 <li><a href="commandeclient.php">Commande</a></li>
                               
             </ul>
